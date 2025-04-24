@@ -1,0 +1,32 @@
+{
+	"name": "@without-exception/core",
+	"version": "0.0.1",
+	"description": "Zero-dependency Gleam-inspired Result, Option and Pipe implementation in Typescript.",
+	"type": "module",
+	"private": "false",
+	"license": "GPL-3.0-only",
+	"packageManager": "pnpm@10.8.1",
+	"engines": {
+		"node": "23.10.0"
+	},
+	"author": {
+		"email": "patrik@dvoracek.dev",
+		"name": "Patrik Dvořáček",
+		"url": "https://dvoracek.dev"
+	},
+	"scripts": {
+		"build": "rolldown -c rolldown.config.ts",
+		"format": "biome format --write .",
+		"lint": "biome check .",
+		"test": "vitest",
+		"types": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@vitest/coverage-istanbul": "3.1.2",
+		"rolldown": "1.0.0-beta.7",
+		"rolldown-plugin-dts": "0.8.2",
+		"typescript": "5.8.3",
+		"vitest": "3.1.2"
+	}
+}

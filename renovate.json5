@@ -1,0 +1,41 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      groupName: "Minor or Patch Production Dependencies",
+      matchDepTypes: ["dependencies"],
+      matchUpdateTypes: ["minor", "patch"],
+    },
+
+    {
+      groupName: "Minor Patch Development Dependencies",
+      matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+    },
+
+    {
+      groupName: "Major Production Dependencies",
+      matchDepTypes: ["dependencies"],
+      matchUpdateTypes: ["major"],
+      schedule: ["* 0-4 1 * *"] // Before 4am each first day of the month
+    },
+
+    {
+      groupName: "Major Development Dependencies",
+      matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["major"],
+      schedule: ["* 0-4 1 * *"] // Before 4am each first day of the month
+    },
+  ],
+
+  reviewersFromCodeOwners: true,
+  rangeStrategy: "pin",
+  branchPrefix: "renovate/",
+  additionalBranchPrefix: "update-dependencies-",
+  postUpdateOptions: ["pnpmDedupe"],
+  rebaseWhen: "behind-base-branch",
+  recreateClosed: true,
+  timezone: "Europe/Prague",
+  schedule: ["every tuesday"],
+}
