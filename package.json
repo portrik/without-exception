@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Zero-dependency functional utilities for TypeScript inspired by Gleam.",
 	"license": "GPL-3.0-only",
-	"packageManager": "pnpm@10.8.1",
+	"packageManager": "pnpm@10.9.0",
 	"engines": {
 		"node": "23.11.0"
 	},
