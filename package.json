@@ -1,6 +1,6 @@
 {
 	"name": "without-exception",
-	"version": "1.0.0",
+	"version": "0.0.2",
 	"description": "Zero-dependency functional utilities for TypeScript inspired by Gleam.",
 	"license": "GPL-3.0-only",
 	"packageManager": "pnpm@10.9.0",
@@ -11,6 +11,10 @@
 		"email": "patrik@dvoracek.dev",
 		"name": "Patrik Dvořáček",
 		"url": "https://dvoracek.dev"
+	},
+	"repository": {
+		"url": "git@github.com:portrik/without-exception.git",
+		"type": "git"
 	},
 	"scripts": {
 		"build": "pnpm run --parallel -r build",

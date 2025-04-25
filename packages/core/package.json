@@ -1,6 +1,6 @@
 {
 	"name": "@without-exception/core",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Zero-dependency Gleam-inspired Result, Option and Pipe implementation in Typescript.",
 	"type": "module",
 	"license": "GPL-3.0-only",
@@ -12,6 +12,11 @@
 		"email": "patrik@dvoracek.dev",
 		"name": "Patrik Dvořáček",
 		"url": "https://dvoracek.dev"
+	},
+	"repository": {
+		"url": "git@github.com:portrik/without-exception.git",
+		"type": "git",
+		"directory": "packages/core"
 	},
 	"files": ["./dist"],
 	"scripts": {
