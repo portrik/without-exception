@@ -12,6 +12,10 @@
 		"name": "Patrik Dvořáček",
 		"url": "https://dvoracek.dev"
 	},
+	"repository": {
+		"url": "git@github.com:portrik/without-exception.git",
+		"type": "git"
+	},
 	"scripts": {
 		"build": "pnpm run --parallel -r build",
 		"format": "pnpm run --parallel -r format",

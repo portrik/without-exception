@@ -13,6 +13,11 @@
 		"name": "Patrik Dvořáček",
 		"url": "https://dvoracek.dev"
 	},
+	"repository": {
+		"url": "git@github.com:portrik/without-exception.git",
+		"type": "git",
+		"directory": "packages/core"
+	},
 	"files": ["./dist"],
 	"scripts": {
 		"build": "rolldown -c rolldown.config.ts",
