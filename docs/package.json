@@ -1,0 +1,21 @@
+{
+	"name": "@without-exception/docs",
+	"version": "0.0.2",
+	"private": true,
+	"packageManager": "pnpm@10.12.4",
+	"type": "module",
+	"license": "GPL-3.0-only",
+	"author": {
+		"email": "patrik@dvoracek.dev",
+		"name": "Patrik Dvořáček",
+		"url": "https://dvoracek.dev"
+	},
+	"scripts": {
+		"dev": "vitepress dev",
+		"build": "vitepress build",
+		"serve": "vitepress serve"
+	},
+	"devDependencies": {
+		"vitepress": "1.6.3"
+	}
+}

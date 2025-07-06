@@ -4,3 +4,4 @@ onlyBuiltDependencies:
 
 packages:
   - "packages/*"
+  - "docs/*"
