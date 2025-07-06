@@ -1,8 +1,12 @@
-name: Main Workflow
+name: Core
 
 on:
   - push
   - pull_request
+
+defaults:
+  run:
+    working-directory: ./packages/core
 
 jobs:
   types:
