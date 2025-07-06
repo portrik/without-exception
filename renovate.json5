@@ -68,7 +68,7 @@
       schedule: ["on the first day of the month"],
       labels: ["major-update", "dev-deps", "requires-review"],
       prPriority: 2,
-      stabilityDays: 3,
+      minimumReleaseAge: "3 days",
     },
 
     // 3. Minor dependencies - Auto-merge, Weekly
@@ -103,8 +103,7 @@
       schedule: ["on the first day of the month"],
       labels: ["major-update", "prod-deps", "breaking-change", "requires-review"],
       prPriority: 1,
-      stabilityDays: 7,
-      separateMajorMinor: true,
+      minimumReleaseAge: "7 days",
     },
 
     // Additional Rules
@@ -128,12 +127,6 @@
       matchPackagePatterns: ["^@testing-library/", "^jest", "^vitest"],
       groupName: "Test packages",
     },
-
-    // Disable updates for specific packages if needed
-    {
-      matchPackageNames: ["node"],
-      enabled: false,
-    },
   ],
 
   // PR Body Configuration
@@ -141,13 +134,7 @@
   prBodyColumns: ["Package", "Type", "Update", "Change", "Pending"],
   prBodyNotes: ["{{#if isMajor}}:warning: **This is a major update that may contain breaking changes.**{{/if}}"],
 
-  // Node.js specific
-  node: {
-    supportPolicy: ["lts_active"],
-  },
-
-  // NPM/PNPM specific
-  npmrc: "use-node-version=lts/iron",
+  // Lock File Maintenance
   lockFileMaintenance: {
     enabled: true,
     schedule: ["before 5am on monday"],
