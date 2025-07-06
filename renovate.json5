@@ -1,41 +1,157 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  packageRules: [
-    {
-      groupName: "Minor or Patch Production Dependencies",
-      matchDepTypes: ["dependencies"],
-      matchUpdateTypes: ["minor", "patch"],
-    },
 
-    {
-      groupName: "Minor Patch Development Dependencies",
-      matchDepTypes: ["devDependencies"],
-      matchUpdateTypes: ["minor", "patch"],
-      automerge: true,
-    },
-
-    {
-      groupName: "Major Production Dependencies",
-      matchDepTypes: ["dependencies"],
-      matchUpdateTypes: ["major"],
-      schedule: ["* 0-4 1 * *"] // Before 4am each first day of the month
-    },
-
-    {
-      groupName: "Major Development Dependencies",
-      matchDepTypes: ["devDependencies"],
-      matchUpdateTypes: ["major"],
-      schedule: ["* 0-4 1 * *"] // Before 4am each first day of the month
-    },
+  // General Configuration
+  extends: [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":preserveSemverRanges"
   ],
 
+  // Branch and PR Configuration
+  branchPrefix: "renovate/",
+  additionalBranchPrefix: "{{#if isMajor}}major-{{/if}}",
   reviewersFromCodeOwners: true,
   rangeStrategy: "pin",
-  branchPrefix: "renovate/",
-  additionalBranchPrefix: "update-dependencies-",
   postUpdateOptions: ["pnpmDedupe"],
   rebaseWhen: "behind-base-branch",
   recreateClosed: true,
   timezone: "Europe/Prague",
-  schedule: ["every tuesday"],
+
+  // PR Limits and Creation
+  prConcurrentLimit: 10,
+  prCreation: "not-pending",
+  prHourlyLimit: 2,
+
+  // Commit Messages
+  commitMessagePrefix: "chore(deps):",
+  commitMessageAction: "update",
+  commitMessageTopic: "{{depName}}",
+  commitMessageExtra: "to {{newVersion}}",
+
+  // Labels
+  labels: ["dependencies", "renovate"],
+  addLabels: ["{{depType}}", "{{updateType}}"],
+
+  // Dependency Dashboard
+  dependencyDashboard: true,
+  dependencyDashboardTitle: "🔄 Dependency Updates Dashboard",
+  dependencyDashboardAutoclose: true,
+
+  // Vulnerability Alerts
+  vulnerabilityAlerts: {
+    enabled: true,
+    labels: ["security"],
+  },
+
+  // Package Rules for the 5 groups
+  packageRules: [
+    // 1. Minor and Patch devDependencies - Auto-merge, Weekly
+    {
+      groupName: "Minor and Patch Development Dependencies",
+      matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+      automergeType: "pr",
+      schedule: ["after 9am and before 5pm on tuesday"],
+      labels: ["automerge", "dev-deps"],
+      prPriority: 5,
+    },
+
+    // 2. Major devDependencies - No auto-merge, Monthly
+    {
+      groupName: "Major Development Dependencies",
+      matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["major"],
+      automerge: false,
+      schedule: ["on the first day of the month"],
+      labels: ["major-update", "dev-deps", "requires-review"],
+      prPriority: 2,
+      stabilityDays: 3,
+    },
+
+    // 3. Minor dependencies - Auto-merge, Weekly
+    {
+      groupName: "Minor Production Dependencies",
+      matchDepTypes: ["dependencies"],
+      matchUpdateTypes: ["minor"],
+      automerge: true,
+      automergeType: "pr",
+      schedule: ["after 9am and before 5pm on tuesday"],
+      labels: ["automerge", "prod-deps", "minor-update"],
+      prPriority: 4,
+    },
+
+    // 4. Patch dependencies - No auto-merge, Monthly
+    {
+      groupName: "Patch Production Dependencies",
+      matchDepTypes: ["dependencies"],
+      matchUpdateTypes: ["patch"],
+      automerge: false,
+      schedule: ["on the first day of the month"],
+      labels: ["prod-deps", "patch-update", "requires-review"],
+      prPriority: 3,
+    },
+
+    // 5. Major dependencies - No auto-merge, Monthly
+    {
+      groupName: "Major Production Dependencies",
+      matchDepTypes: ["dependencies"],
+      matchUpdateTypes: ["major"],
+      automerge: false,
+      schedule: ["on the first day of the month"],
+      labels: ["major-update", "prod-deps", "breaking-change", "requires-review"],
+      prPriority: 1,
+      stabilityDays: 7,
+      separateMajorMinor: true,
+    },
+
+    // Additional Rules
+
+    // Pin GitHub Actions
+    {
+      matchManagers: ["github-actions"],
+      automerge: true,
+      automergeType: "pr",
+      labels: ["github-actions"],
+    },
+
+    // Group ESLint packages
+    {
+      matchPackagePatterns: ["^eslint", "^@typescript-eslint/"],
+      groupName: "ESLint packages",
+    },
+
+    // Group test-related packages
+    {
+      matchPackagePatterns: ["^@testing-library/", "^jest", "^vitest"],
+      groupName: "Test packages",
+    },
+
+    // Disable updates for specific packages if needed
+    {
+      matchPackageNames: ["node"],
+      enabled: false,
+    },
+  ],
+
+  // PR Body Configuration
+  prBodyTemplate: "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{configDescription}}}{{{footer}}}",
+  prBodyColumns: ["Package", "Type", "Update", "Change", "Pending"],
+  prBodyNotes: ["{{#if isMajor}}:warning: **This is a major update that may contain breaking changes.**{{/if}}"],
+
+  // Node.js specific
+  node: {
+    supportPolicy: ["lts_active"],
+  },
+
+  // NPM/PNPM specific
+  npmrc: "use-node-version=lts/iron",
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ["before 5am on monday"],
+    automerge: true,
+    labels: ["lock-file-maintenance"],
+  },
 }
