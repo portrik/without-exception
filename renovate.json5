@@ -1,144 +1,191 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-
-  // General Configuration
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    "config:base",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":preserveSemverRanges"
+    'config:recommended',
+    ':dependencyDashboard',
+    ':semanticCommits',
+    ':preserveSemverRanges',
   ],
-
-  // Branch and PR Configuration
-  branchPrefix: "renovate/",
-  additionalBranchPrefix: "{{#if isMajor}}major-{{/if}}",
+  branchPrefix: 'renovate/',
+  additionalBranchPrefix: '{{#if isMajor}}major-{{/if}}',
   reviewersFromCodeOwners: true,
-  rangeStrategy: "pin",
-  postUpdateOptions: ["pnpmDedupe"],
-  rebaseWhen: "behind-base-branch",
-  recreateClosed: true,
-  timezone: "Europe/Prague",
-
-  // PR Limits and Creation
+  rangeStrategy: 'pin',
+  postUpdateOptions: [
+    'pnpmDedupe',
+  ],
+  rebaseWhen: 'behind-base-branch',
+  recreateWhen: 'always',
+  timezone: 'Europe/Prague',
   prConcurrentLimit: 10,
-  prCreation: "not-pending",
+  prCreation: 'not-pending',
   prHourlyLimit: 2,
-
-  // Commit Messages
-  commitMessagePrefix: "chore(deps):",
-  commitMessageAction: "update",
-  commitMessageTopic: "{{depName}}",
-  commitMessageExtra: "to {{newVersion}}",
-
-  // Labels
-  labels: ["dependencies", "renovate"],
-  addLabels: ["{{depType}}", "{{updateType}}"],
-
-  // Dependency Dashboard
+  commitMessagePrefix: 'chore(deps):',
+  commitMessageAction: 'update',
+  commitMessageTopic: '{{depName}}',
+  commitMessageExtra: 'to {{newVersion}}',
+  labels: [
+    'dependencies',
+    'renovate',
+  ],
+  addLabels: [
+    '{{depType}}',
+    '{{updateType}}',
+  ],
   dependencyDashboard: true,
-  dependencyDashboardTitle: "🔄 Dependency Updates Dashboard",
+  dependencyDashboardTitle: '🔄 Dependency Updates Dashboard',
   dependencyDashboardAutoclose: true,
-
-  // Vulnerability Alerts
   vulnerabilityAlerts: {
     enabled: true,
-    labels: ["security"],
+    labels: [
+      'security',
+    ],
   },
-
-  // Package Rules for the 5 groups
   packageRules: [
-    // 1. Minor and Patch devDependencies - Auto-merge, Weekly
     {
-      groupName: "Minor and Patch Development Dependencies",
-      matchDepTypes: ["devDependencies"],
-      matchUpdateTypes: ["minor", "patch"],
+      groupName: 'Minor and Patch Development Dependencies',
+      matchDepTypes: [
+        'devDependencies',
+      ],
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+      ],
       automerge: true,
-      automergeType: "pr",
-      schedule: ["after 9am and before 5pm on tuesday"],
-      labels: ["automerge", "dev-deps"],
+      automergeType: 'pr',
+      schedule: [
+        'after 9am and before 5pm on tuesday',
+      ],
+      labels: [
+        'automerge',
+        'dev-deps',
+      ],
       prPriority: 5,
     },
-
-    // 2. Major devDependencies - No auto-merge, Monthly
     {
-      groupName: "Major Development Dependencies",
-      matchDepTypes: ["devDependencies"],
-      matchUpdateTypes: ["major"],
+      groupName: 'Major Development Dependencies',
+      matchDepTypes: [
+        'devDependencies',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
       automerge: false,
-      schedule: ["on the first day of the month"],
-      labels: ["major-update", "dev-deps", "requires-review"],
+      schedule: [
+        'on the first day of the month',
+      ],
+      labels: [
+        'major-update',
+        'dev-deps',
+        'requires-review',
+      ],
       prPriority: 2,
-      minimumReleaseAge: "3 days",
+      minimumReleaseAge: '3 days',
     },
-
-    // 3. Minor dependencies - Auto-merge, Weekly
     {
-      groupName: "Minor Production Dependencies",
-      matchDepTypes: ["dependencies"],
-      matchUpdateTypes: ["minor"],
+      groupName: 'Minor Production Dependencies',
+      matchDepTypes: [
+        'dependencies',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
       automerge: true,
-      automergeType: "pr",
-      schedule: ["after 9am and before 5pm on tuesday"],
-      labels: ["automerge", "prod-deps", "minor-update"],
+      automergeType: 'pr',
+      schedule: [
+        'after 9am and before 5pm on tuesday',
+      ],
+      labels: [
+        'automerge',
+        'prod-deps',
+        'minor-update',
+      ],
       prPriority: 4,
     },
-
-    // 4. Patch dependencies - No auto-merge, Monthly
     {
-      groupName: "Patch Production Dependencies",
-      matchDepTypes: ["dependencies"],
-      matchUpdateTypes: ["patch"],
+      groupName: 'Patch Production Dependencies',
+      matchDepTypes: [
+        'dependencies',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
       automerge: false,
-      schedule: ["on the first day of the month"],
-      labels: ["prod-deps", "patch-update", "requires-review"],
+      schedule: [
+        'on the first day of the month',
+      ],
+      labels: [
+        'prod-deps',
+        'patch-update',
+        'requires-review',
+      ],
       prPriority: 3,
     },
-
-    // 5. Major dependencies - No auto-merge, Monthly
     {
-      groupName: "Major Production Dependencies",
-      matchDepTypes: ["dependencies"],
-      matchUpdateTypes: ["major"],
+      groupName: 'Major Production Dependencies',
+      matchDepTypes: [
+        'dependencies',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
       automerge: false,
-      schedule: ["on the first day of the month"],
-      labels: ["major-update", "prod-deps", "breaking-change", "requires-review"],
+      schedule: [
+        'on the first day of the month',
+      ],
+      labels: [
+        'major-update',
+        'prod-deps',
+        'breaking-change',
+        'requires-review',
+      ],
       prPriority: 1,
-      minimumReleaseAge: "7 days",
+      minimumReleaseAge: '7 days',
     },
-
-    // Additional Rules
-
-    // Pin GitHub Actions
     {
-      matchManagers: ["github-actions"],
+      matchManagers: [
+        'github-actions',
+      ],
       automerge: true,
-      automergeType: "pr",
-      labels: ["github-actions"],
+      automergeType: 'pr',
+      labels: [
+        'github-actions',
+      ],
     },
-
-    // Group ESLint packages
     {
-      matchPackagePatterns: ["^eslint", "^@typescript-eslint/"],
-      groupName: "ESLint packages",
+      groupName: 'ESLint packages',
+      matchPackageNames: [
+        '/^eslint/',
+        '/^@typescript-eslint//',
+      ],
     },
-
-    // Group test-related packages
     {
-      matchPackagePatterns: ["^@testing-library/", "^jest", "^vitest"],
-      groupName: "Test packages",
+      groupName: 'Test packages',
+      matchPackageNames: [
+        '/^@testing-library//',
+        '/^jest/',
+        '/^vitest/',
+      ],
     },
   ],
-
-  // PR Body Configuration
-  prBodyTemplate: "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{configDescription}}}{{{footer}}}",
-  prBodyColumns: ["Package", "Type", "Update", "Change", "Pending"],
-  prBodyNotes: ["{{#if isMajor}}:warning: **This is a major update that may contain breaking changes.**{{/if}}"],
-
-  // Lock File Maintenance
+  prBodyTemplate: '{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{configDescription}}}{{{footer}}}',
+  prBodyColumns: [
+    'Package',
+    'Type',
+    'Update',
+    'Change',
+    'Pending',
+  ],
+  prBodyNotes: [
+    '{{#if isMajor}}:warning: **This is a major update that may contain breaking changes.**{{/if}}',
+  ],
   lockFileMaintenance: {
     enabled: true,
-    schedule: ["before 5am on monday"],
+    schedule: [
+      'before 5am on monday',
+    ],
     automerge: true,
-    labels: ["lock-file-maintenance"],
+    labels: [
+      'lock-file-maintenance',
+    ],
   },
 }
