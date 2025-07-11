@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@4.4.0
         with:
-          node-version: 24.3.0
+          node-version: 24.4.0
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
 
