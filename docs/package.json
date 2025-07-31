@@ -2,7 +2,7 @@
 	"name": "@without-exception/docs",
 	"version": "0.0.2",
 	"private": true,
-	"packageManager": "pnpm@10.13.1",
+	"packageManager": "pnpm@10.14.0",
 	"type": "module",
 	"license": "GPL-3.0-only",
 	"author": {
