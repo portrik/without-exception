@@ -1,14 +1,14 @@
 import {
-	type Result,
-	type ResultError,
-	type ResultOk,
 	error,
 	isError,
 	isOk,
 	isResult,
 	ok,
+	type Result,
+	type ResultError,
+	type ResultOk,
 } from "./common.ts";
-import { type Option, isNone } from "./option.ts";
+import { isNone, type Option } from "./option.ts";
 
 class InvalidJSONError extends Error {
 	constructor() {

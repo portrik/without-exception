@@ -15,7 +15,9 @@
 		"type": "git",
 		"directory": "packages/core"
 	},
-	"files": ["./dist"],
+	"files": [
+		"./dist"
+	],
 	"scripts": {
 		"build": "rolldown -c rolldown.config.ts",
 		"format": "biome format --write .",

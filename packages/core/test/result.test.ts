@@ -2,11 +2,6 @@ import { describe, expect, expectTypeOf, test } from "vitest";
 
 import { none, some } from "../src/option.ts";
 import {
-	type InvalidJSONError,
-	type Result,
-	type ResultError,
-	type ResultOk,
-	type UnexpectedErrorValue,
 	all,
 	andThen,
 	error,
@@ -14,6 +9,7 @@ import {
 	fromJSON,
 	fromOption,
 	fromUnsafe,
+	type InvalidJSONError,
 	isError,
 	isOk,
 	isResult,
@@ -23,6 +19,10 @@ import {
 	ok,
 	or,
 	partition,
+	type Result,
+	type ResultError,
+	type ResultOk,
+	type UnexpectedErrorValue,
 	unwrap,
 	unwrapBoth,
 	unwrapError,
@@ -150,7 +150,6 @@ describe("Result", () => {
 
 			test("error with invalid error type", () => {
 				const result = fromUnsafe<number>(() => {
-					// biome-ignore lint/style/useThrowOnlyError: Test code
 					throw 1;
 				});
 
@@ -181,7 +180,6 @@ describe("Result", () => {
 			test("error async", async () => {
 				const errorValue = new Error("whoopsie");
 				const result = await fromUnsafe<number>(
-					// biome-ignore lint/suspicious/useAwait: Test code
 					(async () => {
 						throw errorValue;
 					})(),
@@ -196,9 +194,7 @@ describe("Result", () => {
 
 			test("error async with invalid error type", async () => {
 				const result = await fromUnsafe<number>(
-					// biome-ignore lint/suspicious/useAwait: Test code
 					(async () => {
-						// biome-ignore lint/style/useThrowOnlyError: Test code
 						throw 1;
 					})(),
 				);
@@ -233,7 +229,7 @@ describe("Result", () => {
 			expect(isResult(ok(1))).toBeTruthy();
 			expect(isResult(error(1))).toBeTruthy();
 
-			expect(isResult(new Array())).toBeFalsy();
+			expect(isResult([])).toBeFalsy();
 		});
 
 		test("isOk", () => {
