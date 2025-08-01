@@ -1,18 +1,18 @@
 import { describe, expect, expectTypeOf, test } from "vitest";
 
 import {
-	type Option,
-	type Some,
 	fromNullable,
 	isOption,
 	isSome,
+	type Option,
+	type Some,
 } from "../src/option.ts";
 import { pipe } from "../src/pipe.ts";
 import {
-	type Result,
-	type UnexpectedErrorValue,
 	fromUnsafe,
 	map,
+	type Result,
+	type UnexpectedErrorValue,
 	unwrap,
 } from "../src/result.ts";
 

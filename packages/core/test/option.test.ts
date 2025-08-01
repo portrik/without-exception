@@ -1,9 +1,6 @@
 import { describe, expect, expectTypeOf, test } from "vitest";
 
 import {
-	type None,
-	type Option,
-	type Some,
 	all,
 	andThen,
 	flatten,
@@ -14,8 +11,11 @@ import {
 	isOption,
 	isSome,
 	map,
+	type None,
 	none,
+	type Option,
 	or,
+	type Some,
 	some,
 	unwrap,
 	values,

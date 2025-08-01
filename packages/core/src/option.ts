@@ -1,14 +1,14 @@
 import {
-	type None,
-	type Option,
-	type Some,
 	isNone,
 	isOption,
 	isSome,
+	type None,
 	none,
+	type Option,
+	type Some,
 	some,
 } from "./common.ts";
-import { type Result, isError } from "./result.ts";
+import { isError, type Result } from "./result.ts";
 
 const normalizeJSON = (
 	json: string | Record<string, unknown>,
