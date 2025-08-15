@@ -21,7 +21,7 @@ jobs:
           run_install: false
       - uses: actions/setup-node@4.4.0
         with:
-          node-version: 24.5.0
+          node-version: 24.6.0
           cache: "pnpm"
 
       - run: pnpm install
@@ -39,7 +39,7 @@ jobs:
           run_install: false
       - uses: actions/setup-node@4.4.0
         with:
-          node-version: 24.5.0
+          node-version: 24.6.0
           cache: "pnpm"
 
       - run: pnpm install
@@ -60,7 +60,7 @@ jobs:
           run_install: false
       - uses: actions/setup-node@4.4.0
         with:
-          node-version: 24.5.0
+          node-version: 24.6.0
           cache: "pnpm"
 
       - run: pnpm install
@@ -80,7 +80,7 @@ jobs:
           run_install: false
       - uses: actions/setup-node@4.4.0
         with:
-          node-version: 24.5.0
+          node-version: 24.6.0
           cache: "pnpm"
 
       - run: pnpm install
