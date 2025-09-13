@@ -4,7 +4,7 @@
 	"description": "Zero-dependency Gleam-inspired Result, Option and Pipe implementation in Typescript.",
 	"type": "module",
 	"license": "GPL-3.0-only",
-	"packageManager": "pnpm@10.15.1",
+	"packageManager": "pnpm@10.16.1",
 	"author": {
 		"email": "patrik@dvoracek.dev",
 		"name": "Patrik Dvořáček",
