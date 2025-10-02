@@ -21,11 +21,11 @@
 		"types": "pnpm run --parallel -r types"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.4",
+		"@biomejs/biome": "2.2.5",
 		"@cookielab.io/biome-config": "0.9.0",
-		"rolldown": "1.0.0-beta.39",
-		"rolldown-plugin-dts": "0.16.8",
-		"typescript": "5.9.2",
+		"rolldown": "1.0.0-beta.41",
+		"rolldown-plugin-dts": "0.16.11",
+		"typescript": "5.9.3",
 		"vitest": "3.2.4"
 	}
 }
