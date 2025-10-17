@@ -3,7 +3,7 @@
 	"version": "0.0.2",
 	"description": "Zero-dependency functional utilities for TypeScript inspired by Gleam.",
 	"license": "GPL-3.0-only",
-	"packageManager": "pnpm@10.18.2",
+	"packageManager": "pnpm@10.18.3",
 	"author": {
 		"email": "patrik@dvoracek.dev",
 		"name": "Patrik Dvořáček",
