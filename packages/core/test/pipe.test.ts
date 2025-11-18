@@ -31,7 +31,7 @@ describe("Pipe", () => {
 			(
 				value: Result<{ value: string }, Error | UnexpectedErrorValue>,
 			): Result<number, Error | UnexpectedErrorValue> =>
-				map(value, (innerValue) => Number.parseInt(innerValue.value)),
+				map(value, (innerValue) => Number.parseInt(innerValue.value, 10)),
 			(value: Result<number, Error | UnexpectedErrorValue>): number =>
 				unwrap(value, 42),
 			(value: number): number[] =>
